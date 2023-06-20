@@ -1,95 +1,114 @@
 <?php
 
-// class 🎦
-class Movie
-{
-    public $title;
-    public $year;
-    public $director;
-    public $genre;
-    public $duration;
-    public $price;
-
-    function __construct($_title, $_year, $_director, $_genre, $_duration, $_price)
-    {
-        $this->title = $_title;
-        $this->year = $_year;
-        $this->director = $_director;
-        $this->genre = $_genre;
-        $this->duration = $_duration . " min";
-        $this->price = $_price . " €";
-    }
-
-    public function getDiscount()
-    {
-        return $this->price = $this->price - ($this->price * 0.2) . " €";
-    }
-}
-
-// movies 🎥
-
-$movie1 = new Movie('The Lord of the Rings: The Fellowship of the Ring', 2001, 'Peter Jackson', 'Fantasy', 178, 10);
-
-$movie2 = new Movie('The Lord of the Rings: The Two Towers', 2002, 'Peter Jackson', 'Fantasy', 179, 10);
-
-$movie3 = new Movie('The Fast and the Furious', 2001, 'Rob Cohen', 'Action', 106, 10);
-
-$movie4 = new Movie('2 Fast 2 Furious', 2003, 'John Singleton', 'Action', 108, 10);
-
-// discount 🎬
-
-$movie1->getDiscount();
-
-$movie3->getDiscount();
-
-// print movies 🍿
-
-// movie 1
-echo "<h2>Movie 1</h2>";
-
-echo "<h3>Title: " . $movie1->title . "</h3>";
-echo "<h3>Year: " . $movie1->year . "</h3>";
-echo "<h3>Director: " . $movie1->director . "</h3>";
-echo "<h3>Genreh3>: " . $movie1->genre . "</h3>";
-echo "<h3>Duration: " . $movie1->duration . "</h3>";
-echo "<h3>Price: " . $movie1->price . "</h3>";
-
-echo "<br>";
-
-// movie 2
-echo "<h2>Movie 2</h2>";
-
-echo "<h3>Title: " . $movie2->title . "</h3>";
-echo "<h3>Year: " . $movie2->year . "</h3>";
-echo "<h3>Director: " . $movie2->director . "</h3>";
-echo "<h3>Genre: " . $movie2->genre . "</h3>";
-echo "<h3>Duration: " . $movie2->duration . "</h3>";
-echo "<h3>Price: " . $movie2->price . "</h3>";
-
-echo "<br>";
-
-// movie 3
-echo "<h2>Movie 3</h2>";
-
-echo "<h3>Title: " . $movie3->title . "</h3>";
-echo "<h3>Year: " . $movie3->year . "</h3>";
-echo "<h3>Director: " . $movie3->director . "</h3>";
-echo "<h3>Genre: " . $movie3->genre . "</h3>";
-echo "<h3>Duration: " . $movie3->duration . "</h3>";
-echo "<h3>Price: " . $movie3->price . "</h3>";
-
-echo "<br>";
-
-// movie 4
-echo "<h2>Movie 4</h2>";
-
-echo "<h3>Title: " . $movie4->title . "</h3>";
-echo "<h3>Year: " . $movie4->year . "</h3>";
-echo "<h3>Director: " . $movie4->director . "</h3>";
-echo "<h3>Genre: " . $movie4->genre . "</h3>";
-echo "<h3>Duration: " . $movie4->duration . "</h3>";
-echo "<h3>Price: " . $movie4->price . "</h3>";
+include __DIR__ . '/db.php';
 
 ?>
 
-//
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Movies</title>
+
+    <!-- bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+
+    <!-- css -->
+    <style>
+        html,
+        body {
+            height: 100%;
+        }
+
+        .card {
+            height: 100%;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .pointer {
+            cursor: pointer;
+        }
+
+        .image-container {
+            height: 500px;
+            overflow: hidden;
+
+        }
+
+        .image-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+
+        .card-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            opacity: 0;
+            color: #fff;
+            padding: 20px;
+            transition: opacity 0.3s ease;
+        }
+
+        .card:hover .card-overlay {
+            opacity: 1;
+        }
+
+        /* .card-title {
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        } */
+    </style>
+
+</head>
+
+<body class="bg-dark">
+
+    <!-- header -->
+    <header>
+        <!-- movie 🎥 -->
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-12 p-3">
+                    <h1 class="text-center text-white">Movies 🎬</h1>
+                </div>
+            </div>
+        </div>
+    </header>
+    <!-- main 🍿-->
+    <main class="my-3">
+        <div class="container">
+            <div class="row">
+                <?php foreach ($movies as $movie) { ?>
+                    <?php echo $movie->renderCard(); ?>
+                <?php } ?>
+            </div>
+        </div>
+    </main>
+    <!-- footer -->
+    <footer>
+        <!-- footer -->
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-12 p-3">
+                    <p class="text-center text-white">made with 🎥 by hollywood</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js" integrity="sha384-fbbOQedDUMZZ5KreZpsbe1LCZPVmfTnH7ois6mU1QK+m14rQ1l2bGBq41eYeM/fS" crossorigin="anonymous"></script>
+
+</body>
+
+</html>
