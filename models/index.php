@@ -1,7 +1,7 @@
 <?php
 
-include __DIR__ . '/db.php';
-
+require __DIR__ . '/db.php';
+require __DIR__ . '/movieList.php';
 ?>
 
 <!DOCTYPE html>
@@ -17,13 +17,8 @@ include __DIR__ . '/db.php';
 
     <!-- css -->
     <style>
-        html,
-        body {
-            height: 100%;
-        }
-
         .card {
-            height: 100%;
+            height: auto;
             position: relative;
             overflow: hidden;
         }
@@ -33,9 +28,8 @@ include __DIR__ . '/db.php';
         }
 
         .image-container {
-            height: 500px;
+            height: 100%;
             overflow: hidden;
-
         }
 
         .image-container img {
