@@ -66,7 +66,6 @@ require __DIR__ . '/movieList.php';
 </head>
 
 <body class="bg-dark">
-
     <!-- header -->
     <header>
         <!-- movie 🎥 -->
@@ -90,7 +89,6 @@ require __DIR__ . '/movieList.php';
     </main>
     <!-- footer -->
     <footer>
-        <!-- footer -->
         <div class="container-fluid">
             <div class="row">
                 <div class="col-12 p-3">
